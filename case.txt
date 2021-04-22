@@ -1,0 +1,17 @@
+A aplicação exemplo consiste em criar um simples gerenciador de tarefas
+com as seguintes funcionalidades:
+- Criar uma tarefa
+- Atualizar a tarefa
+- Remover a tarefa
+- Listar tarefas
+A tarefa deve ter os seguintes dados: Título, descrição, responsável,
+prioridade (alta, média, baixa), deadline (data).
+
+
+A listagem de tarefas deve permitir filtrar as tarefas por alguns campos,
+listá-las e realizar o link com as ações, conforme protótipo abaixo:
+
+
+O concluir tarefa deverá marcar a tarefa como concluída, assim ela não
+deverá mais constar na lista de andamento. A situação da tarefa pode ser Em
+andamento ou Concluída.
