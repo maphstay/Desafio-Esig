@@ -158,7 +158,11 @@
                                 <input class="form-control" type="text" id="modal6">
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                            <div id="sucess" class="alert alert-success" role="alert" style="padding: 5px; display: none;" >
+                                Alterações realizadas !
+                              </div>
+                            <button 
+                           style="margin-left: 4.3rem" type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                             <button type="button" class="btn btn-primary" ng-click="alterTask($index)">Salvar alterações</button>
                         
                         </div>
@@ -175,6 +179,7 @@
             var modal3 = document.getElementById("modal3")
             var modal5 = document.getElementById("modal5")
             var modal6 = document.getElementById("modal6")
+            var sucess = document.getElementById("sucess")
             
             var app = angular.module("myApp", []);
                 app.controller("myController", function($scope) {
@@ -221,6 +226,7 @@
                 modal3.value = storageValue[i].task_own;
                 modal5.value = storageValue[i].task_pri;
                 modal6.value = date;
+                console.log(sucess)
             };
 
             // Botão salvar alterações - MODAL
@@ -229,6 +235,8 @@
                 if (modal1.value && modal3.value && modal5.value && modal6.value != "") {
                     $scope.tasks[i].task_name = modal1.value, $scope.tasks[i].task_own = modal3.value, $scope.tasks[i].task_pri = modal5.value, $scope.tasks[i].task_date = modal6.value
                     localStorage.setItem("tasks", angular.toJson($scope.tasks));
+                    sucess.style.display = "block"
+                    setTimeout(() => sucess.style.display = "none", 5000)
                 } else {
                     window.alert("Preencha todos os campos corretamente!!!")
                 }
