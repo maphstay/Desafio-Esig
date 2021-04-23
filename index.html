@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
         <link
         rel="stylesheet"
@@ -8,6 +11,19 @@
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
         crossorigin="anonymous"
         />
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css"/>
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('#example').DataTable({
+                    "searching": false,
+                    "lengthChange": false,
+                    "paging":   false,
+                    "info":     false
+                });
+            } );
+        </script>
         <link rel="shortcut icon" href="todo.png"/>
         <title>To-do List</title>
 
@@ -81,7 +97,7 @@
                     </textarea>   
                 </div>
             <div class="table-wrapper">
-                <table class="table table-hover table-bordered">
+                <table id="example" class="table table-hover table-bordered display">
                 <thead>
                     <tr>
                     <th>No.</th>
@@ -90,7 +106,7 @@
                     <th>Status</th>
                     <th>Prioridade</th>
                     <th>Expiração</th>
-                    <th>Ações</th>
+                    <th data-orderable="false">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -196,6 +212,7 @@
                 if ($scope.yourTask && $scope.taskOwn && $scope.taskPri && $scope.taskDate != undefined) {
                     $scope.tasks.push({ task_name: $scope.yourTask, task_dsc: $scope.taskDsc, task_own: $scope.taskOwn, status: false, task_pri: $scope.taskPri, task_date: $scope.taskDate });
                     localStorage.setItem("tasks", angular.toJson($scope.tasks));
+                    document.location.reload(true)
                 } else {
                     window.alert("Preencha todos os campos corretamente!!!")
                 }
@@ -205,13 +222,14 @@
             $scope.delete = function(i) {
             $scope.tasks.splice(i, 1);
             localStorage.setItem("tasks", angular.toJson($scope.tasks));
+            document.location.reload(true)
             };
 
             // Botão concluir
             $scope.finished = function(i) {
             $scope.tasks[i].status = true;
             localStorage.setItem("tasks", angular.toJson($scope.tasks));
-            console.log(index)
+            document.location.reload(true)
             };
 
             // Botão editar
@@ -226,7 +244,6 @@
                 modal3.value = storageValue[i].task_own;
                 modal5.value = storageValue[i].task_pri;
                 modal6.value = date;
-                console.log(sucess)
             };
 
             // Botão salvar alterações - MODAL
@@ -236,7 +253,8 @@
                     $scope.tasks[i].task_name = modal1.value, $scope.tasks[i].task_own = modal3.value, $scope.tasks[i].task_pri = modal5.value, $scope.tasks[i].task_date = modal6.value
                     localStorage.setItem("tasks", angular.toJson($scope.tasks));
                     sucess.style.display = "block"
-                    setTimeout(() => sucess.style.display = "none", 5000)
+                    setTimeout(() => sucess.style.display = "none", 1000)
+                    setTimeout(() => document.location.reload(true) = "none", 1200)
                 } else {
                     window.alert("Preencha todos os campos corretamente!!!")
                 }
@@ -245,11 +263,7 @@
         </script>
         
         <!--Dependências-->
-        <script
-        src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-        crossorigin="anonymous"
-        ></script>
+        
         <script
         src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
